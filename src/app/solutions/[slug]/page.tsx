@@ -10,8 +10,8 @@ interface SolutionsPageProps {
   };
 }
 
-const Solutions = ({ params }: SolutionsPageProps) => {
-  const { slug } = params;
+const Solutions = async ({ params }: SolutionsPageProps) => {
+  const { slug } = await params;
 
   // Find the solution that matches the slug
   const currentSolution = solutions.find((solution) => solution.id === slug);
@@ -50,11 +50,12 @@ const Solutions = ({ params }: SolutionsPageProps) => {
             defaultValue={slug}
             className='justify-center p-4'
             aria-label='Solutions Offered'>
-            <TabsList className='w-full justify-center mb-4'>
+            <TabsList className='w-full flex flex-col sm:flex-row sm:flex-wrap justify-center mb-4 h-auto p-2 bg-muted rounded-md gap-1'>
               {solutions.map((solution) => (
                 <TabsTrigger
                   key={solution.id}
-                  value={solution.id}>
+                  value={solution.id}
+                  className='w-full sm:w-auto sm:flex-1 px-3 py-2 text-sm md:text-base data-[state=active]:bg-background data-[state=active]:text-foreground'>
                   {solution.title}
                 </TabsTrigger>
               ))}
