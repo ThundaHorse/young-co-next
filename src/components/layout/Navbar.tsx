@@ -27,13 +27,19 @@ export function Navbar() {
   const [isOpen, setIsOpen] = React.useState(false);
 
   return (
-    <header className='sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60'>
+    <header className='sticky top-0 z-50 w-full border-b bg-background'>
       <div className='container flex h-16 items-center'>
         <div className='ml-6 hidden md:flex'>
           <Link
             href='/'
             className='mr-6 flex items-center space-x-2'>
-            <span className='hidden font-bold sm:inline-block'>Your Brand</span>
+            <span className='hidden font-bold sm:inline-block'>
+              <img
+                alt='Young & Company'
+                src='/images/logo.webp'
+                className='mr-3 h-6 sm:h-9'
+              />
+            </span>
           </Link>
           <NavigationMenu>
             <NavigationMenuList>
