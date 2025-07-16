@@ -3,7 +3,6 @@
 import * as React from 'react';
 import Link from 'next/link';
 import { Menu } from 'lucide-react';
-
 import { Button } from '@/components/ui/button';
 import {
   NavigationMenu,
@@ -12,79 +11,17 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
+  navigationMenuTriggerStyle
 } from '@/components/ui/navigation-menu';
 import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
-  SheetTrigger,
+  SheetTrigger
 } from '@/components/ui/sheet';
 import { cn } from '@/lib/utils';
-
-interface Product {
-  name: string;
-  description: string;
-  href: string;
-}
-
-interface SolutionOption {
-  name: string;
-  id: string;
-  tab: number;
-}
-
-const products: Product[] = [
-  {
-    name: 'About',
-    description: 'About',
-    href: '/about',
-  },
-  // {
-  //   name: 'Guides',
-  //   description: 'Guides Page',
-  //   href: '/guides',
-  // },
-  {
-    name: 'Contact',
-    description: 'Contact Page',
-    href: '/contact-us',
-  },
-];
-
-const solutionOptions: SolutionOption[] = [
-  {
-    name: 'Accounting',
-    id: 'accounting',
-    tab: 0,
-  },
-  {
-    name: 'Bookkeeping',
-    id: 'bookkeeping',
-    tab: 1,
-  },
-  {
-    name: 'Taxes',
-    id: 'taxes',
-    tab: 2,
-  },
-  {
-    name: 'Formation',
-    id: 'formation',
-    tab: 3,
-  },
-  {
-    name: 'Payroll',
-    id: 'payroll',
-    tab: 4,
-  },
-  {
-    name: 'Strategic Planning',
-    id: 'strategic-planning',
-    tab: 5,
-  },
-];
+import { solutionOptions, products } from '@/lib/constants';
 
 export function Navbar() {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -104,6 +41,7 @@ export function Navbar() {
                 {products.map((product) => (
                   <NavigationMenuLink
                     key={product.name}
+                    href={product.href}
                     className={navigationMenuTriggerStyle()}>
                     {product.name}
                   </NavigationMenuLink>
@@ -117,7 +55,7 @@ export function Navbar() {
                       <ListItem
                         key={solution.id}
                         title={solution.name}
-                        href={solution.id}></ListItem>
+                        href={`/solutions/${solution.id}`}></ListItem>
                     ))}
                   </ul>
                 </NavigationMenuContent>
