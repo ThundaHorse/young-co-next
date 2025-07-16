@@ -14,14 +14,14 @@ const FooterComponent = () => {
             matter addressed herein.
           </p>
           <ul className='justify-center'>
-            <a href='/about'>About</a>
-            <a href='/solutions'>Solutions</a>
-            <a href='/contact-us'>Contact</a>
-            <a
+            <Link href='/about'>About</Link>
+            <Link href='/solutions'>Solutions</Link>
+            <Link href='/contact-us'>Contact</Link>
+            <Link
               href='http://youngcotax.clientportal.com/'
               target='_blank'>
               Login
-            </a>
+            </Link>
           </ul>
         </div>
         <hr />
