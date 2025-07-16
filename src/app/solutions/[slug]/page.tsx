@@ -5,9 +5,9 @@ import Image from 'next/image';
 import { notFound } from 'next/navigation';
 
 interface SolutionsPageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 const Solutions = async ({ params }: SolutionsPageProps) => {
