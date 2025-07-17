@@ -93,7 +93,7 @@ const ContactForm = ({ siteKey }: ContactFormProps) => {
 
     if (captchaValid) {
       try {
-        await fetch('/', {
+        await fetch('/_form.html', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
