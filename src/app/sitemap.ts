@@ -4,21 +4,21 @@ import { solutions } from '@/lib/constants';
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages = [
     {
-      url: 'https://www.young-co-next.netlify.app',
+      url: 'https://www.youngcotax.com',
       lastModified: new Date()
     },
     {
-      url: 'https://www.young-co-next.netlify.app/about',
+      url: 'https://www.youngcotax.com/about',
       lastModified: new Date()
     },
     {
-      url: 'https://www.young-co-next.netlify.app/contact-us',
+      url: 'https://www.youngcotax.com/contact-us',
       lastModified: new Date()
     }
   ];
 
   const solutionPages = solutions.map((solution) => ({
-    url: `https://www.young-co-next.netlify.app/solutions/${solution.id}`,
+    url: `https://www.youngcotax.com/solutions/${solution.id}`,
     lastModified: new Date()
   }));
 

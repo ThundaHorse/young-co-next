@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://young-co-next.netlify.app/sitemap.xml
+Sitemap: https://youngcotax.com/sitemap.xml
