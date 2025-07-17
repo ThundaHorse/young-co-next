@@ -4,7 +4,11 @@ import { solutions } from '@/lib/constants';
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages = [
     {
-      url: 'https://www.youngcotax.com',
+      url: 'https://www.youngcotax.com/_not-found',
+      lastModified: new Date()
+    },
+    {
+      url: 'https://www.youngcotax.com/',
       lastModified: new Date()
     },
     {
@@ -13,6 +17,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: 'https://www.youngcotax.com/contact-us',
+      lastModified: new Date()
+    },
+    {
+      url: 'https://www.youngcotax.com/solutions',
       lastModified: new Date()
     }
   ];
