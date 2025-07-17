@@ -87,7 +87,7 @@ const ContactForm = ({ siteKey }: ContactFormProps) => {
 
     if (captchaValid) {
       try {
-        await fetch('/', {
+        await fetch('/_form.html', {
           method: 'POST',
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
           body: new URLSearchParams({
@@ -125,7 +125,6 @@ const ContactForm = ({ siteKey }: ContactFormProps) => {
           data-netlify='true'
           method='POST'
           id='contact-form'
-          noValidate
           onSubmit={form.handleSubmit(onSubmit)}
           className='w-2/3 space-y-6'>
           <input
