@@ -136,7 +136,7 @@ export function Navbar() {
                 <hr className='w-11/12' />
                 {solutionOptions.map((solution) => (
                   <MobileNavItem
-                    href={solution.id}
+                    href={`/solutions/${solution.id}`}
                     key={solution.name}
                     onOpenChange={setIsOpen}>
                     {solution.name}

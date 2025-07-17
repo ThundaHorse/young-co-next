@@ -1,13 +1,40 @@
 import './styles.css';
 import { solutions } from '@/lib/constants';
+import type { Metadata, ResolvingMetadata } from 'next';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
+import Link from 'next/link';
 
 interface SolutionsPageProps {
   params: Promise<{
     slug: string;
   }>;
+}
+
+export async function generateMetadata(
+  { params }: SolutionsPageProps,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const { slug } = await params;
+  const solution = solutions.find((sol) => sol.id === slug);
+  const previousSolution = (await parent).title || 'Solutions';
+
+  if (!solution) {
+    return {
+      title: 'Solution Not Found',
+      description: 'The requested solution does not exist.',
+      openGraph: {
+        title: `${previousSolution} | Young Co Tax`,
+        description: `${previousSolution}`
+      }
+    };
+  }
+
+  return {
+    title: `${solution.title} | Young Co Tax`,
+    description: solution.intro
+  };
 }
 
 const Solutions = async ({ params }: SolutionsPageProps) => {
@@ -28,7 +55,7 @@ const Solutions = async ({ params }: SolutionsPageProps) => {
           <div
             className='p-4 rounded-lg'
             style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}>
-            <h2 className='mb-4 text-5xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-5xl'>
+            <h2 className='mb-4 text-5xl font-normal tracking-tight leading-none text-white md:text-5xl lg:text-5xl'>
               Solutions
             </h2>
             <p className='mb-8 text-lg font-normal text-white lg:text-xl sm:px-16 lg:px-48'>
@@ -56,7 +83,11 @@ const Solutions = async ({ params }: SolutionsPageProps) => {
                   key={solution.id}
                   value={solution.id}
                   className='w-full sm:w-auto sm:flex-1 px-3 py-2 text-sm md:text-base data-[state=active]:bg-background data-[state=active]:text-foreground'>
-                  {solution.title}
+                  <Link
+                    scroll={false}
+                    href={`/solutions/${solution.id}`}>
+                    {solution.title}
+                  </Link>
                 </TabsTrigger>
               ))}
             </TabsList>
@@ -68,13 +99,13 @@ const Solutions = async ({ params }: SolutionsPageProps) => {
                   title={item.title}>
                   <div className='grid md:grid-cols-2 gap-8'>
                     <div className='tab-left text-left'>
-                      <h2 className='text-3xl font-extrabold dark:text-white'>
+                      <h2 className='text-3xl font-bold dark:text-white'>
                         {item.title}
                       </h2>
 
                       <br />
 
-                      <h2 className='text-2xl font-extrabold dark:text-white'>
+                      <h2 className='text-2xl font-bold dark:text-white'>
                         {item.intro}
                       </h2>
 
@@ -97,7 +128,7 @@ const Solutions = async ({ params }: SolutionsPageProps) => {
                       <br />
                       <br />
 
-                      <h2 className='text-2xl font-extrabold dark:text-white'>
+                      <h2 className='text-2xl font-bold dark:text-white'>
                         {item.intro2}
                       </h2>
 
