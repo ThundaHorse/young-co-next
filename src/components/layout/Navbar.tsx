@@ -16,52 +16,68 @@ import {
 import {
   Sheet,
   SheetContent,
+  SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger
 } from '@/components/ui/sheet';
 import { cn } from '@/lib/utils';
 import { solutionOptions, products } from '@/lib/constants';
+import Image from 'next/image';
 
 export function Navbar() {
   const [isOpen, setIsOpen] = React.useState(false);
 
   return (
     <header className='sticky top-0 z-50 w-full border-b bg-background'>
-      <div className='container flex h-16 items-center'>
+      <div className='container mx-auto flex h-16 items-center'>
         <div className='ml-6 hidden md:flex'>
           <Link
             href='/'
             className='mr-6 flex items-center space-x-2'>
             <span className='hidden font-bold sm:inline-block'>
-              <img
+              <Image
+                width={360}
+                height={36}
+                loading='eager'
                 alt='Young & Company'
                 src='/images/logo.webp'
-                className='mr-3 h-6 sm:h-9'
+                className='mr-3 sm:h-9 md:w-auto md:h-6'
               />
             </span>
           </Link>
-          <NavigationMenu>
+          <NavigationMenu viewport={false}>
             <NavigationMenuList>
               <NavigationMenuItem>
                 {products.map((product) => (
                   <NavigationMenuLink
                     key={product.name}
                     href={product.href}
-                    className={navigationMenuTriggerStyle()}>
+                    className={
+                      navigationMenuTriggerStyle() +
+                      ' text-muted-foreground font-normal'
+                    }>
                     {product.name}
                   </NavigationMenuLink>
                 ))}
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <NavigationMenuTrigger>Solutions</NavigationMenuTrigger>
+                <NavigationMenuTrigger className='text-muted-foreground font-normal'>
+                  Solutions
+                </NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <ul className='grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]'>
+                  <ul className='grid w-[200px] gap-4'>
                     {solutionOptions.map((solution) => (
-                      <ListItem
+                      <NavigationMenuLink
+                        asChild
                         key={solution.id}
-                        title={solution.name}
-                        href={`/solutions/${solution.id}`}></ListItem>
+                        title={solution.name}>
+                        <Link
+                          className='text-muted-foreground font-normal'
+                          href={`/solutions/${solution.id}`}>
+                          {solution.name}
+                        </Link>
+                      </NavigationMenuLink>
                     ))}
                   </ul>
                 </NavigationMenuContent>
@@ -86,12 +102,24 @@ export function Navbar() {
             side='left'
             className='pr-0'>
             <SheetHeader>
+              <SheetDescription className='hidden'>
+                Mobile Navigation Menu
+              </SheetDescription>
               <SheetTitle>
                 <Link
                   href='/'
                   className='flex items-center'
                   onClick={() => setIsOpen(false)}>
-                  <span className='font-bold'>Your Brand</span>
+                  <span>
+                    <Image
+                      width={230}
+                      height={36}
+                      loading='eager'
+                      alt='Young & Company'
+                      src='/images/logo.webp'
+                      className='mr-3 h-6 sm:h-9 w-auto'
+                    />
+                  </span>
                 </Link>
               </SheetTitle>
             </SheetHeader>
@@ -105,13 +133,7 @@ export function Navbar() {
                     {product.name}
                   </MobileNavItem>
                 ))}
-                <hr />
-                <span
-                  className={cn(
-                    'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground'
-                  )}>
-                  Solutions
-                </span>
+                <hr className='w-11/12' />
                 {solutionOptions.map((solution) => (
                   <MobileNavItem
                     href={solution.id}
@@ -122,26 +144,50 @@ export function Navbar() {
                 ))}
               </div>
             </div>
+
+            <div className='mb-6 mx-auto w-full text-center'>
+              <Button
+                variant='outline'
+                size='sm'>
+                <Link
+                  className='text-muted-foreground font-normal'
+                  href='http://youngcotax.clientportal.com/'
+                  target='_blank'>
+                  Client Portal
+                </Link>
+              </Button>
+            </div>
           </SheetContent>
         </Sheet>
 
-        <div className='flex flex-1 items-center justify-between space-x-2 md:justify-end'>
+        <div className='flex flex-1 items-center justify-between space-x-2 md:justify-end p-4'>
           <div className='w-full flex-1 md:w-auto md:flex-none'>
             <Link
               href='/'
               className='flex items-center space-x-2 md:hidden'>
-              <span className='font-bold'>Your Brand</span>
+              <span>
+                <Image
+                  width={220}
+                  priority={true}
+                  height={36}
+                  loading='eager'
+                  alt='Young & Company'
+                  src='/images/logo.webp'
+                  className='mr-3 h-6 sm:h-9 sm:w-auto! w-auto'
+                />
+              </span>
             </Link>
           </div>
-          <nav className='flex items-center space-x-2'>
+          <nav className='hidden md:flex items-center space-x-2'>
             <Button
-              variant='ghost'
+              variant='outline'
               size='sm'>
-              <a
+              <Link
+                className='text-muted-foreground font-normal'
                 href='http://youngcotax.clientportal.com/'
                 target='_blank'>
                 Client Portal
-              </a>
+              </Link>
             </Button>
           </nav>
         </div>

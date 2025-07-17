@@ -1,51 +1,8 @@
 import { Card } from '../ui/card';
+import { offerings } from '@/lib/constants';
 import '../styles/jumbotron.css';
 
 export default function JumbotronComponent() {
-  const offerings = [
-    {
-      icon: '/icons/offer/bank.png',
-      title: 'Accounting',
-      description: "You handle the business. We'll handle the numbers.",
-      tab: 0
-    },
-    {
-      icon: '/icons/offer/book.png',
-      title: 'Bookkeeping',
-      description:
-        'Monthly bookkeeping to track your income and expenses to understand your financials.',
-      tab: 1
-    },
-    {
-      icon: '/icons/offer/tax-bag.png',
-      title: 'Taxes',
-      description:
-        'Prepare your business tax returns, personal tax returns, and year-round tax guidance.',
-      tab: 2
-    },
-    {
-      icon: '/icons/offer/flow-chart.png',
-      title: 'Formation',
-      description:
-        'Set up your new company, protect your assets, and make tax elections.',
-      tab: 3
-    },
-    {
-      icon: '/icons/offer/calendar.png',
-      title: 'Payroll',
-      description:
-        'Streamline your payroll process to pay yourself and your employees.',
-      tab: 4
-    },
-    {
-      icon: '/icons/offer/king.png',
-      title: 'Strategic Planning',
-      description:
-        'Meet with a specialist one-on-one every quarter to develop and implement a tailormade tax saving strategy.',
-      tab: 5
-    }
-  ];
-
   const renderHelpSection = () => {
     return (
       <div className='grid grid-cols-[1fr] gap-x-0 gap-y-8 sm:grid-cols-[repeat(2,1fr)] sm:gap-x-8 xl:grid-cols-[repeat(4,1fr)]'>
@@ -179,7 +136,7 @@ export default function JumbotronComponent() {
           <div
             className='p-4 rounded-lg'
             style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}>
-            <h1 className='mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl'>
+            <h1 className='mb-4 text-4xl font-semibold tracking-tight leading-none text-white md:text-5xl lg:text-6xl'>
               Strategic Tax Planning & Accounting Partners
             </h1>
             <p className='mb-8 text-lg font-normal text-white lg:text-xl sm:px-16 lg:px-48'>
@@ -194,7 +151,7 @@ export default function JumbotronComponent() {
 
       <section id='info'>
         <div className='px-4'>
-          <p className='text-4xl font-extrabold mt-16 lg:mb-20 mb-10 md:mb-20'>
+          <p className='text-4xl font-semibold mt-16 lg:mb-20 mb-10 md:mb-20'>
             How We Help Our Clients
           </p>
           <div className='p-8 sm:p-14 sm:pt-0'>{renderHelpSection()}</div>
@@ -205,7 +162,7 @@ export default function JumbotronComponent() {
 
       <section id='what-we-offer'>
         <div className='bg-gray-50 p-14 mt-0'>
-          <p className='text-4xl font-extrabold lg:mb-20 mb-10 md:mb-20 sm:mb-16'>
+          <p className='text-4xl font-semibold lg:mb-20 mb-10 md:mb-20 sm:mb-16'>
             What We Offer Our Clients
           </p>
           {renderOfferSection()}

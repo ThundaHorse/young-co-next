@@ -2,10 +2,12 @@ import Link from 'next/link';
 
 const FooterComponent = () => {
   return (
-    <footer style={{ boxShadow: 'none' }}>
-      <div className='w-full text-center'>
-        <div className='w-full justify-between sm:flex sm:items-center sm:justify-between flex flex-col'>
-          <p className='mb-12 text-xs text-gray-500'>
+    <footer
+      style={{ boxShadow: 'none' }}
+      className='mt-8'>
+      <div className='w-full text-center px-4'>
+        <div className='container mx-auto w-full justify-between sm:flex sm:items-center sm:justify-between flex flex-col mb-6'>
+          <p className='mb-6 text-muted-foreground text-sm'>
             Any tax advice contained in this website (including any attachments)
             is not intended or written to be used, and cannot be used, for the
             purpose of (i) avoiding penalties imposed under the Internal Revenue
@@ -13,20 +15,32 @@ const FooterComponent = () => {
             marketing, or recommending to another party any transaction or
             matter addressed herein.
           </p>
-          <ul className='justify-center'>
-            <Link href='/about'>About</Link>
-            <Link href='/solutions'>Solutions</Link>
-            <Link href='/contact-us'>Contact</Link>
+
+          <ul className='grid grid-cols-[1fr] gap-x-0 lg:gap-x-8 gap-y-4 sm:grid-cols-[repeat(1,1fr)] xl:grid-cols-[repeat(3,1fr)]'>
             <Link
-              href='http://youngcotax.clientportal.com/'
-              target='_blank'>
-              Login
+              href='/about'
+              className='text-muted-foreground text-sm font-normal'>
+              About
+            </Link>
+
+            <Link
+              href='/solutions'
+              className='text-muted-foreground text-sm font-normal'>
+              Solutions
+            </Link>
+
+            <Link
+              href='/contact-us'
+              className='text-muted-foreground text-sm font-normal'>
+              Contact
             </Link>
           </ul>
         </div>
+
         <hr />
-        <div className='text-sm text-gray-500 dark:text-gray-400 sm:text-center'>
-          © 2024
+
+        <div className='text-sm text-gray-500 dark:text-gray-400 sm:text-center my-6'>
+          © 2025
           <Link
             href='/'
             className='ml-1 hover:underline'>

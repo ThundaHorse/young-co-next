@@ -121,8 +121,18 @@ const ContactForm = ({ siteKey }: ContactFormProps) => {
     <div className='flex justify-center col'>
       <Form {...form}>
         <form
+          name='contact'
+          data-netlify='true'
+          method='POST'
+          id='contact-form'
+          noValidate
           onSubmit={form.handleSubmit(onSubmit)}
           className='w-2/3 space-y-6'>
+          <input
+            type='hidden'
+            name='form-name'
+            value='contact'
+          />
           <FormField
             control={form.control}
             name='name'
