@@ -4,19 +4,17 @@
   <body>
     <form
       name="contact"
-      netlify-honeypot="bot-field"
       netlify
       hidden>
       <input
         type="text"
         name="from_name" />
       <input
-        type="hidden"
-        name="subject"
-        value="Contact Inquiry from %{from_name}" />
-      <input
         type="text"
         name="from_email" />
+      <input
+        type="text"
+        name="subject" />
       <textarea name="message"></textarea>
     </form>
   </body>

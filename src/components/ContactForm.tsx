@@ -18,6 +18,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { Card, CardContent, CardTitle } from './ui/card';
 
 interface ContactFormProps {
   siteKey: string;
@@ -26,6 +27,9 @@ interface ContactFormProps {
 const FormSchema = z.object({
   name: z.string().min(2, {
     message: 'Name must be at least 2 characters.'
+  }),
+  subject: z.string().min(2, {
+    message: 'Subject must be at least 2 characters.'
   }),
   email: z.string().min(5, {
     message: 'Email must be at least 5 characters.'
@@ -40,6 +44,7 @@ const ContactForm = ({ siteKey }: ContactFormProps) => {
     resolver: zodResolver(FormSchema),
     defaultValues: {
       name: '',
+      subject: '',
       email: '',
       message: ''
     }
@@ -74,22 +79,27 @@ const ContactForm = ({ siteKey }: ContactFormProps) => {
   };
 
   const onSubmit = async (data: z.infer<typeof FormSchema>) => {
-    const { name, email, message } = data;
+    const { name, subject, email, message } = data;
 
     // Disable form while processing submission
     setDisabled(true);
 
     const params = {
       from_name: name,
+      subject: subject,
       message: message,
       from_email: email
     };
 
     if (captchaValid) {
       try {
-        await fetch('/_form.html', {
+        await fetch('/', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            Accept: 'application/json',
+            'Cross-Origin-Resource-Policy': '*'
+          },
           body: new URLSearchParams({
             'form-name': 'contact',
             ...params
@@ -112,112 +122,139 @@ const ContactForm = ({ siteKey }: ContactFormProps) => {
       console.error('Captcha validation failed');
       toggleAlert('Please complete the reCAPTCHA.', 'danger');
       setDisabled(false);
-
-      return;
     }
   };
 
   return (
-    <div className='flex justify-center col'>
-      <Form {...form}>
-        <form
-          name='contact'
-          data-netlify='true'
-          method='POST'
-          id='contact-form'
-          onSubmit={form.handleSubmit(onSubmit)}
-          className='w-2/3 space-y-6'>
-          <input
-            type='hidden'
-            name='form-name'
-            value='contact'
-          />
-          <FormField
-            control={form.control}
-            name='name'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Name</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder='Name'
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+    <div className='flex justify-center items-center'>
+      <Card>
+        <CardTitle className='text-center mb-4'>Contact Us</CardTitle>
 
-          <FormField
-            control={form.control}
-            name='email'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Email</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder='example@example.com'
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+        <CardContent className='w-full'>
+          <Form {...form}>
+            <form
+              name='contact'
+              method='POST'
+              id='contact-form'
+              onSubmit={form.handleSubmit(onSubmit)}
+              className='space-y-6'>
+              <input
+                type='hidden'
+                name='form-name'
+                value='contact'
+              />
 
-          <FormField
-            control={form.control}
-            name='message'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Message</FormLabel>
-                <FormControl>
-                  <Textarea
-                    placeholder='Your message'
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+              <div className='grid grid-cols-[2fr] gap-x-4 gap-y-4 sm:grid-cols-[repeat(2,1fr)] sm:gap-x-2'>
+                <FormField
+                  control={form.control}
+                  name='name'
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Name</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder='Name'
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-          <ReCAPTCHA
-            ref={recaptchaRef}
-            sitekey={siteKey}
-            onChange={onChange}
-            className='mt-4'
-          />
+                <FormField
+                  control={form.control}
+                  name='email'
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Email</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder='example@example.com'
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
 
-          {!captchaValid && form.formState.isSubmitted ? (
-            <FormMessage>Please complete the reCAPTCHA.</FormMessage>
-          ) : null}
+              <FormField
+                control={form.control}
+                name='subject'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Subject</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder='Subject'
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-          {alertInfo.display && (
-            <div
-              className={`alert alert-${alertInfo.type} alert-dismissible mt-5 text-red-500`}
-              role='alert'>
-              {alertInfo.message}
-              <button
-                type='button'
-                className='btn-close'
-                data-bs-dismiss='alert'
-                aria-label='Close'
-                onClick={() =>
-                  setAlertInfo({ display: false, message: '', type: '' })
-                } // Clear the alert when close button is clicked
-              ></button>
-            </div>
-          )}
+              <FormField
+                control={form.control}
+                name='message'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Message</FormLabel>
+                    <FormControl>
+                      <Textarea
+                        placeholder='Your message'
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-          <Button
-            type='submit'
-            disabled={disabled}>
-            Submit
-          </Button>
-        </form>
-      </Form>
+              <div className='flex flex-col items-center justify-center'>
+                <ReCAPTCHA
+                  ref={recaptchaRef}
+                  sitekey={siteKey}
+                  onChange={onChange}
+                  className='mt-4'
+                />
+
+                {!captchaValid && form.formState.isSubmitted ? (
+                  <FormMessage>Please complete the reCAPTCHA.</FormMessage>
+                ) : null}
+
+                {!alertInfo.display && (
+                  <div
+                    className={`alert alert-${alertInfo.type} alert-dismissible mt-5 text-red-500`}
+                    role='alert'>
+                    {alertInfo.message}
+                    <button
+                      type='button'
+                      className='btn-close'
+                      data-bs-dismiss='alert'
+                      aria-label='Close'
+                      onClick={() =>
+                        setAlertInfo({ display: false, message: '', type: '' })
+                      } // Clear the alert when close button is clicked
+                    ></button>
+                  </div>
+                )}
+
+                <Button
+                  type='submit'
+                  size={'lg'}
+                  className='w-full mt-6'
+                  disabled={disabled}>
+                  Submit
+                </Button>
+              </div>
+            </form>
+          </Form>
+        </CardContent>
+      </Card>
     </div>
   );
 };
