@@ -17,6 +17,11 @@ export const products: Product[] = [
     href: '/about'
   },
   {
+    name: 'Blog',
+    description: 'Tax Tips & Business Insights',
+    href: '/blog'
+  },
+  {
     name: 'Contact',
     description: 'Contact Page',
     href: '/contact-us'

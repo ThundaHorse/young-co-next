@@ -1,4 +1,5 @@
 import JumbotronComponent from '@/components/layout/Jumbotron';
+import RecentBlogPosts from '@/components/RecentBlogPosts';
 
 export default function Home() {
   return (
@@ -6,6 +7,7 @@ export default function Home() {
       <div className='h-full w-full text-center'>
         <JumbotronComponent />
       </div>
+      <RecentBlogPosts />
     </section>
   );
 }
