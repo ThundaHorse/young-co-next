@@ -24,9 +24,11 @@ import {
 import { cn } from '@/lib/utils';
 import { solutionOptions, products } from '@/lib/constants';
 import Image from 'next/image';
+import { NavBarProps } from '@/lib/constants';
 
-export function Navbar() {
+export function Navbar({ navigationData }: NavBarProps) {
   const [isOpen, setIsOpen] = React.useState(false);
+  const { mainLinks, solutionLinks, clientPortalUrl, logo } = navigationData;
 
   return (
     <header className='sticky top-0 z-50 w-full border-b bg-background'>
@@ -40,8 +42,8 @@ export function Navbar() {
                 width={360}
                 height={36}
                 loading='eager'
-                alt='Young & Company'
-                src='/images/logo.webp'
+                alt={logo.file.description || 'Young & Company'}
+                src={`https:${logo.file.url}`}
                 className='mr-3 sm:h-9 md:w-auto md:h-6'
               />
             </span>
@@ -49,7 +51,7 @@ export function Navbar() {
           <NavigationMenu viewport={false}>
             <NavigationMenuList>
               <NavigationMenuItem>
-                {products.map((product) => (
+                {mainLinks.map((product) => (
                   <NavigationMenuLink
                     key={product.name}
                     href={product.href}
@@ -67,7 +69,7 @@ export function Navbar() {
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <ul className='grid w-[200px] gap-4'>
-                    {solutionOptions.map((solution) => (
+                    {solutionLinks?.map((solution) => (
                       <NavigationMenuLink
                         asChild
                         key={solution.id}
@@ -151,7 +153,7 @@ export function Navbar() {
                 size='sm'>
                 <Link
                   className='text-muted-foreground font-normal'
-                  href='http://youngcotax.clientportal.com/'
+                  href={clientPortalUrl}
                   target='_blank'>
                   Client Portal
                 </Link>

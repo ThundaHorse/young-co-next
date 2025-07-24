@@ -4,6 +4,7 @@ import './globals.css';
 // import { Navbar } from '@/components/layout/Navbar';
 import FooterComponent from '@/components/layout/Footer';
 import dynamic from 'next/dynamic';
+import { getNavigation } from '@/lib/contentful';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -24,16 +25,29 @@ export const metadata: Metadata = {
   description: 'Your trusted partner in tax solutions'
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const navigationData = await getNavigation();
+
+  // Transform logo string to expected object structure
+  const formattedNavData = {
+    ...navigationData,
+    logo: {
+      description: 'Logo',
+      file: {
+        url: navigationData.logo
+      }
+    }
+  };
+
   return (
     <html lang='en'>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <HeaderComponent />
+        <HeaderComponent navigationData={formattedNavData} />
         <main>{children}</main>
         <FooterComponent />
       </body>

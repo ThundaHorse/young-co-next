@@ -220,3 +220,26 @@ export const offerings = [
     tab: 5
   }
 ];
+
+export interface NavBarProps {
+  navigationData: {
+    mainLinks: Array<{
+      name: string;
+      description: string;
+      href: string;
+    }>;
+    solutionLinks?: Array<{
+      name: string;
+      id: string;
+      tab: number;
+    }>;
+    clientPortalUrl: string;
+    logo: {
+      file: {
+        url: string;
+        description: string;
+        fileName: string;
+      };
+    };
+  };
+}
