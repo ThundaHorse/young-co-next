@@ -1,18 +1,15 @@
 #about-intro {
-  background-image: url('/images/about-us-intro-banner.webp');
+  /* background-image: url('/images/about-us-intro.webp'); */
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
 }
 
-.call-to-action-about-us {
+/* .call-to-action-about-us {
   background-color: rgb(254, 230, 231);
   color: rgb(250, 90, 96);
-}
+} */
 
-.call-to-action-button {
-  background-color: rgb(250, 90, 96);
-}
 #about-intro ul li {
   list-style: inside;
 }
