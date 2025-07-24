@@ -23,11 +23,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: 'https://www.youngcotax.com/contact-us',
       lastModified: new Date()
-    },
-    {
-      url: 'https://www.youngcotax.com/solutions',
-      lastModified: new Date()
     }
+    // {
+    //   url: 'https://www.youngcotax.com/solutions',
+    //   lastModified: new Date()
+    // }
   ];
 
   const solutionPages = solutions.map((solution) => ({
