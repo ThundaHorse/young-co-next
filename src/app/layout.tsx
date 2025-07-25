@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
-// import { Navbar } from '@/components/layout/Navbar';
+import { NavBarProps } from '@/lib/constants';
 import FooterComponent from '@/components/layout/Footer';
 import dynamic from 'next/dynamic';
 import { getNavigation } from '@/lib/contentful';
@@ -31,17 +31,8 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const navigationData = await getNavigation();
-
-  // Transform logo string to expected object structure
-  const formattedNavData = {
-    ...navigationData,
-    logo: {
-      description: 'Logo',
-      file: {
-        url: navigationData.logo
-      }
-    }
-  };
+  const formattedNavData: NavBarProps['navigationData'] =
+    navigationData as NavBarProps['navigationData'];
 
   return (
     <html lang='en'>

@@ -234,12 +234,7 @@ export interface NavBarProps {
       tab: number;
     }>;
     clientPortalUrl: string;
-    logo: {
-      file: {
-        url: string;
-        description: string;
-        fileName: string;
-      };
-    };
+    url: string;
+    description: string;
   };
 }

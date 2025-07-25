@@ -28,7 +28,8 @@ import { NavBarProps } from '@/lib/constants';
 
 export function Navbar({ navigationData }: NavBarProps) {
   const [isOpen, setIsOpen] = React.useState(false);
-  const { mainLinks, solutionLinks, clientPortalUrl, logo } = navigationData;
+  const { mainLinks, solutionLinks, clientPortalUrl, url, description } =
+    navigationData;
 
   return (
     <header className='sticky top-0 z-50 w-full border-b bg-background'>
@@ -42,8 +43,8 @@ export function Navbar({ navigationData }: NavBarProps) {
                 width={360}
                 height={36}
                 loading='eager'
-                alt={logo.file.description || 'Young & Company'}
-                src={`https:${logo.file.url}`}
+                alt={description || 'Young & Company'}
+                src={`https:${url}`}
                 className='mr-3 sm:h-9 md:w-auto md:h-6'
               />
             </span>
