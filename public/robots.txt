@@ -1,6 +1,0 @@
-User-agent: *
-Allow: /
-Disallow: /error
-Disallow: /global-error
-
-Sitemap: https://www.youngcotax.com/sitemap.xml

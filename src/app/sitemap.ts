@@ -5,10 +5,6 @@ import { blogPosts, blogCategories } from '@/lib/blog';
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages = [
     {
-      url: 'https://www.youngcotax.com/_not-found',
-      lastModified: new Date()
-    },
-    {
       url: 'https://www.youngcotax.com/',
       lastModified: new Date()
     },
@@ -23,11 +19,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: 'https://www.youngcotax.com/contact-us',
       lastModified: new Date()
+    },
+    {
+      url: 'https://www.youngcotax.com/solutions',
+      lastModified: new Date()
     }
-    // {
-    //   url: 'https://www.youngcotax.com/solutions',
-    //   lastModified: new Date()
-    // }
   ];
 
   const solutionPages = solutions.map((solution) => ({

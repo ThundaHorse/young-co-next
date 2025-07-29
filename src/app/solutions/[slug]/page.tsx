@@ -35,12 +35,12 @@ export async function generateMetadata(
     title: `${solution.title} | Young Co Tax`,
     description: solution.intro,
     alternates: {
-      canonical: `https://www.youngcotax.com/solutions/${slug}`
+      canonical: `https://www.youngcotax.com/solutions/${solution.id}`
     },
     openGraph: {
       title: `${solution.title} | Young Co Tax`,
       description: solution.intro,
-      url: `https://www.youngcotax.com/solutions/${slug}`
+      url: `https://www.youngcotax.com/solutions/${solution.id}`
     }
   };
 }
