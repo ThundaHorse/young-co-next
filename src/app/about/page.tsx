@@ -1,9 +1,67 @@
 import { Button } from '@/components/ui/button';
 import './styles.css';
+import { Metadata } from 'next';
+import StructuredData from '@/components/StructuredData';
+
+export const metadata: Metadata = {
+  title: 'About Young Co Tax | Our Team & Mission',
+  description:
+    'Learn about Young Co Tax - our mission, team, and dedication to providing personalized tax and accounting services for individuals and businesses.',
+  alternates: {
+    canonical: '/about'
+  },
+  openGraph: {
+    title: 'About Young Co Tax | Our Team & Mission',
+    description:
+      'Learn about Young Co Tax - our mission, team, and dedication to providing personalized tax and accounting services.',
+    url: 'https://www.youngcotax.com/about',
+    images: [
+      {
+        url: 'https://www.youngcotax.com/images/about-us-intro-banner.webp',
+        width: 1200,
+        height: 630,
+        alt: 'Young Co Tax Team'
+      }
+    ]
+  }
+};
+
+const localBusinessData = {
+  name: 'Young Co Tax',
+  image: 'https://www.youngcotax.com/images/logo.webp',
+  // address: {
+  //   '@type': 'PostalAddress',
+  //   streetAddress: '123 Tax Avenue',
+  //   addressLocality: 'Tax City',
+  //   addressRegion: 'TX',
+  //   postalCode: '12345',
+  //   addressCountry: 'US'
+  // },
+  // geo: {
+  //   '@type': 'GeoCoordinates',
+  //   latitude: 40.7128,
+  //   longitude: -74.006
+  // },
+  url: 'https://www.youngcotax.com',
+  // telephone: '+1-555-123-4567',
+  // priceRange: '$$',
+  openingHoursSpecification: [
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+      opens: '09:00',
+      closes: '17:00'
+    }
+  ]
+};
 
 const About = () => {
   return (
     <>
+      <StructuredData
+        type='LocalBusiness'
+        data={localBusinessData}
+      />
       <section
         id='about-intro'
         className='bg-gray-50 backdrop-filter backdrop-blur-lg'>

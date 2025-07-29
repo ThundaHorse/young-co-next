@@ -1,10 +1,11 @@
 import './styles.css';
 import { solutions } from '@/lib/constants';
-import type { Metadata, ResolvingMetadata } from 'next';
+import type { Metadata } from 'next';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import StructuredData from '@/components/StructuredData';
 
 interface SolutionsPageProps {
   params: Promise<{
@@ -12,36 +13,52 @@ interface SolutionsPageProps {
   }>;
 }
 
-export async function generateMetadata(
-  { params }: SolutionsPageProps,
-  parent: ResolvingMetadata
-): Promise<Metadata> {
+export async function generateMetadata({
+  params
+}: SolutionsPageProps): Promise<Metadata> {
   const { slug } = await params;
   const solution = solutions.find((sol) => sol.id === slug);
-  const previousSolution = (await parent).title || 'Solutions';
 
   if (!solution) {
     return {
       title: 'Solution Not Found',
-      description: 'The requested solution does not exist.',
-      openGraph: {
-        title: `${previousSolution} | Young Co Tax`,
-        description: `${previousSolution}`
-      }
+      description: 'The requested solution could not be found.'
     };
   }
 
+  const capitalizedTitle = solution.title
+    .split(' ')
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+
+  const imageUrl = `https://www.youngcotax.com/images/solutions/${solution.id}.webp`;
+
   return {
-    title: `${solution.title} | Young Co Tax`,
+    title: `${capitalizedTitle} Services | Young Co Tax`,
     description: solution.intro,
     alternates: {
-      canonical: `https://www.youngcotax.com/solutions/${solution.id}`
+      canonical: `/solutions/${slug}`
     },
     openGraph: {
-      title: `${solution.title} | Young Co Tax`,
+      title: `${capitalizedTitle} Services | Young Co Tax`,
       description: solution.intro,
-      url: `https://www.youngcotax.com/solutions/${solution.id}`
+      url: `https://www.youngcotax.com/solutions/${slug}`,
+      images: [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: `${capitalizedTitle} Services`
+        }
+      ],
+      type: 'website'
     }
+    // twitter: {
+    //   card: 'summary_large_image',
+    //   title: `${capitalizedTitle} Services | Young Co Tax`,
+    //   description: solution.intro,
+    //   images: [imageUrl]
+    // }
   };
 }
 
@@ -56,8 +73,36 @@ const Solutions = async ({ params }: SolutionsPageProps) => {
     notFound();
   }
 
+  // Prepare breadcrumb structured data
+  const breadcrumbData = {
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://www.youngcotax.com/'
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Solutions',
+        item: 'https://www.youngcotax.com/solutions'
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: currentSolution.title,
+        item: `https://www.youngcotax.com/solutions/${currentSolution.id}`
+      }
+    ]
+  };
+
   return (
     <>
+      <StructuredData
+        type='BreadcrumbList'
+        data={breadcrumbData}
+      />
       <section id='solutions-intro'>
         <div className='px-4 mx-auto max-w-screen-xl text-center py-24 lg:py-56'>
           <div

@@ -6,6 +6,7 @@ import { parseMarkdown } from '@/lib/markdown';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { CalendarDays, Clock, User, ArrowLeft, Share2 } from 'lucide-react';
+import StructuredData from '@/components/StructuredData';
 
 interface BlogPostPageProps {
   params: Promise<{
@@ -25,16 +26,41 @@ export async function generateMetadata({
     };
   }
 
+  // Generate a more descriptive, SEO-friendly title
+  const seoTitle = `${post.title} | Tax Tips & Advice | Young Co Tax Blog`;
+
   return {
-    title: `${post.title} - Young Co Tax Blog`,
+    title: seoTitle,
     description: post.excerpt,
+    alternates: {
+      canonical: `/blog/${slug}`
+    },
     authors: [{ name: post.author }],
     openGraph: {
-      title: post.title,
+      title: seoTitle,
       description: post.excerpt,
+      url: `https://www.youngcotax.com/blog/${slug}`,
       type: 'article',
       publishedTime: post.publishedAt,
-      authors: [post.author]
+      authors: [post.author],
+      tags: [...post.tags, post.category],
+      images: [
+        {
+          url:
+            post.featuredImage || 'https://www.youngcotax.com/images/logo.webp',
+          width: 1200,
+          height: 630,
+          alt: post.title
+        }
+      ]
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: seoTitle,
+      description: post.excerpt,
+      images: [
+        post.featuredImage || 'https://www.youngcotax.com/images/logo.webp'
+      ]
     }
   };
 }
@@ -49,8 +75,33 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   const relatedPosts = getRelatedPosts(post);
 
+  // Prepare article structured data
+  const articleData = {
+    headline: post.title,
+    image: post.featuredImage || 'https://www.youngcotax.com/images/logo.webp',
+    datePublished: post.publishedAt,
+    dateModified: post.updatedAt || post.publishedAt,
+    author: {
+      '@type': 'Person',
+      name: post.author
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Young Co Tax',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://www.youngcotax.com/images/logo.webp'
+      }
+    },
+    description: post.excerpt
+  };
+
   return (
     <div className='min-h-screen bg-gray-50'>
+      <StructuredData
+        type='Article'
+        data={articleData}
+      />
       {/* Header */}
       <header className='bg-white border-b'>
         <div className='container mx-auto px-4 py-6'>

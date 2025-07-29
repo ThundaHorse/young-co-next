@@ -14,12 +14,21 @@ export default function robots(): MetadataRoute.Robots {
           '/api/',
           '/.well-known/',
           '/private/',
-          '/*?*' // Block URLs with query parameters for cleaner crawling
+          '/*?*', // Block URLs with query parameters for cleaner crawling
+          '/*.json$', // Block JSON files
+          '/*.js$', // Block JavaScript files
+          '/*.css$' // Block CSS files
         ]
       },
-      // Optional: Special rules for specific crawlers
+      // Specific rules for Google
       {
         userAgent: 'Googlebot',
+        allow: '/',
+        disallow: ['/error', '/global-error', '/not-found', '/_next/', '/api/']
+      },
+      // Specific rules for Bing
+      {
+        userAgent: 'Bingbot',
         allow: '/',
         disallow: ['/error', '/global-error', '/not-found', '/_next/', '/api/']
       }
